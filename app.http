@@ -16,3 +16,17 @@ Content-Type: application/json
   "username":"JoeBiden",
   "password":"biden@123"
 }
+###
+
+POST http://localhost:3000/user/tweets/
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjc4Mjc0NDM2fQ.gj_JxuoUERNjz10Z3YG4Str3QZANrPWj9QcLsrK2VFU
+Content-Type: application/json
+
+{
+   "tweet": "The Mornings..."
+}
+###
+
+DELETE http://localhost:3000/tweets/tweetId/
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjc4Mjc0NDM2fQ.gj_JxuoUERNjz10Z3YG4Str3QZANrPWj9QcLsrK2VFU
+###

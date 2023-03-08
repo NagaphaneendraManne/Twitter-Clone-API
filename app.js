@@ -86,11 +86,35 @@ app.post("/login/", async (request, response) => {
   } else {
     const isPasswordMatched = await bcrypt.compare(password, dbUser.password);
     if (isPasswordMatched === true) {
-      response.send("Login success!");
+      const payload = { username: username };
+      const jwtToken = jwt.sign(payload, "MY_TOKEN");
+      response.send({ jwtToken, result: "Login Success!" }); //Here, jwtToken and the result will be sent as response.
     } else {
       response.status(400);
       response.send("Invalid password");
     }
   }
 });
+
+//API 10
+app.post("/user/tweets/", authenticateToken, async (request, response) => {
+  const tweetDetails = request.body;
+  const { tweet } = tweetDetails;
+  const addTweetQuery = `INSERT INTO tweet (tweet) VALUES ('${tweet}');`;
+  await db.run(addTweetQuery);
+  response.send("Created a Tweet");
+});
+
+//API 11
+app.delete(
+  "/tweets/:tweetId/",
+  authenticateToken,
+  async (request, response) => {
+    const { tweetId } = request.params;
+    const deleteTweetQuery = `DELETE FROM tweet WHERE tweet_id = ${tweetId};`;
+    await db.run(deleteTweetQuery);
+    response.send("Tweet Removed");
+  }
+);
+
 module.exports = app;
